@@ -3,16 +3,12 @@ import java.sql.*;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        String userName = "ibrahim";
-        String password = "ib123";
-        String connectionString = "jdbc:mysql://localhost/testDB";
         Connection connection;
         Statement statement;
         ResultSet resultSet = null;
 
         // connecting to the database
-        connection = DriverManager.getConnection(
-                connectionString, userName, password);
+        connection = DBInfo.connect();
 
         // write the query
         statement = connection.createStatement(
@@ -23,9 +19,11 @@ public class Main {
 
         // run the query
         resultSet = statement.executeQuery(query);
+
+        //Moves the cursor to the last row in this ResultSet object.
         resultSet.last();
 
-        
+
         System.out.println(resultSet.getRow());
 
 
