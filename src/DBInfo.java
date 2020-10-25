@@ -18,4 +18,5 @@ public class DBInfo {
         return DriverManager.getConnection(
                 connectionString, userName, password);
     }
+
 }

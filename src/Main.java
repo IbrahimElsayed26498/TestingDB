@@ -1,11 +1,12 @@
 import java.sql.*;
 
 public class Main {
+    static Connection connection = null;
+    static Statement statement = null;
+    static ResultSet resultSet = null;
 
     public static void main(String[] args) throws SQLException {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
+
 
         try{
             // connecting to the database
@@ -35,7 +36,11 @@ public class Main {
 
             // select all the columns.
             printTable(resultSet);
-
+            if (createTable()){
+                System.out.println("MyCity table created successfully.");
+            }else{
+                System.out.println("Error");
+            }
 
         }catch (Exception e){
 
@@ -65,6 +70,23 @@ public class Main {
                     resultSet.getString("CountryCode"),
                     resultSet.getString("District"),
                     resultSet.getInt("Population"));
+        }
+    }
+
+    private static boolean createTable(){
+        try{
+            String sql = "DROP TABLE IF EXISTS MyCity";
+            statement.executeUpdate(sql);
+
+            sql = "CREATE TABLE MyCity(" +
+                        " ID int, " +
+                        "person varchar(20)" +
+                    ")";
+        statement.executeUpdate(sql);
+        return true;
+
+        }catch (Exception e){
+            return false;
         }
     }
 }
