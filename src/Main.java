@@ -36,11 +36,21 @@ public class Main {
 
             // select all the columns.
             printTable(resultSet);
-            if (createTable()){
+            /*if (createTable()){
                 System.out.println("MyCity table created successfully.");
             }else{
                 System.out.println("Error");
-            }
+            }*/
+
+            System.out.println("My city...\n----------");
+            insertColumn();
+
+            resultSet = statement.executeQuery("select * from mycity");
+            System.out.printf("%-2s %-10s%n", "ID", "Person");
+            resultSet.first();
+            System.out.printf("%-2d %-10s%n",
+                    resultSet.getInt("ID"),
+                    resultSet.getString("person"));
 
         }catch (Exception e){
 
@@ -85,6 +95,16 @@ public class Main {
         statement.executeUpdate(sql);
         return true;
 
+        }catch (Exception e){
+            return false;
+        }
+    }
+    private static boolean insertColumn(){
+        try{
+            String sql = "INSERT INTO mycity (person) VALUES (\"Ibrahim\")";
+
+            statement.executeUpdate(sql);
+            return true;
         }catch (Exception e){
             return false;
         }
