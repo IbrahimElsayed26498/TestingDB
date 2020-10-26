@@ -48,11 +48,11 @@ public class Main {
                 System.out.println("Error in update");
             }
 
-            if (delete()){
-                System.out.println("deleted successfully.");
+            if (preparedInsert()){
+                System.out.println("inserted successfully.");
             }
             else {
-                System.out.println("Error in delete.");
+                System.out.println("Error in insertion.");
             }
 
             System.out.println("My city...\n----------");
@@ -61,9 +61,7 @@ public class Main {
             resultSet = statement.executeQuery("select * from mycity");
             System.out.printf("%-2s %-10s%n", "ID", "Person");
             resultSet.first();
-            System.out.printf("%-2d %-10s%n",
-                    resultSet.getInt("ID"),
-                    resultSet.getString("person"));
+            preparedSelect();
 
         }catch (Exception e){
 
@@ -144,5 +142,31 @@ public class Main {
         }
     }
 
+    private static boolean preparedInsert(){
+        try{
+            String sql = "INSERT INTO mycity (`person`) VALUES (?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "Othman");
+            ps.executeUpdate();
+            return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
+    private static void preparedSelect(){
+        try{
+            String sql = "SELECT * FROM `mycity`";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                System.out.printf("%-2d %-10s%n",
+                        rs.getInt(1),
+                        rs.getString(2));
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
