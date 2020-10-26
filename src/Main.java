@@ -47,6 +47,14 @@ public class Main {
             else {
                 System.out.println("Error in update");
             }
+
+            if (delete()){
+                System.out.println("deleted successfully.");
+            }
+            else {
+                System.out.println("Error in delete.");
+            }
+
             System.out.println("My city...\n----------");
             insertColumn();
 
@@ -125,4 +133,16 @@ public class Main {
             return false;
         }
     }
+    private static boolean delete(){
+        try{
+            String sql = "DELETE FROM mycity WHERE ID=2";
+
+            statement.executeUpdate(sql);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
 }
