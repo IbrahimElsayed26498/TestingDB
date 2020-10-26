@@ -63,6 +63,9 @@ public class Main {
             resultSet.first();
             preparedSelect();
 
+            DatabaseMetaData dbmd = connection.getMetaData();
+            System.out.println("Driver name: " + dbmd.getDriverName());
+
         }catch (Exception e){
 
             System.out.println(e.getMessage());
