@@ -41,7 +41,12 @@ public class Main {
             }else{
                 System.out.println("Error");
             }*/
-
+            if (update()){
+                System.out.println("Updated successfully.");
+            }
+            else {
+                System.out.println("Error in update");
+            }
             System.out.println("My city...\n----------");
             insertColumn();
 
@@ -102,6 +107,17 @@ public class Main {
     private static boolean insertColumn(){
         try{
             String sql = "INSERT INTO mycity (person) VALUES (\"Ibrahim\")";
+
+            statement.executeUpdate(sql);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private static boolean update(){
+        try{
+            String sql = "UPDATE mycity set person='Osama' WHERE ID = 2";
 
             statement.executeUpdate(sql);
             return true;
