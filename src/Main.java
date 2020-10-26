@@ -155,18 +155,26 @@ public class Main {
         }
     }
 
-    private static void preparedSelect(){
+    private static void preparedSelect() throws Exception{
+        ResultSet rs=null;
         try{
             String sql = "SELECT * FROM `mycity`";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            System.out.println("Number of columns: " + rsmd.getColumnCount());
             while (rs.next()){
                 System.out.printf("%-2d %-10s%n",
                         rs.getInt(1),
                         rs.getString(2));
             }
+
         }catch (Exception e){
             System.out.println(e.getMessage());
+        }
+        finally {
+            if (rs != null)
+                rs.close();
         }
     }
 }
